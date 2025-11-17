@@ -1,59 +1,168 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+README — CampusBooking(Actividad Autónoma 1 – Laravel)
+Descripción del Proyecto
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+CampusBooking Lite es un módulo básico para gestionar Espacios (aulas, salas, laboratorios) y Reservas dentro de una sede educativa.
+El sistema permite realizar operaciones CRUD: crear, listar, editar y eliminar.
+No requiere autenticación, filtros ni validaciones avanzadas de traslape de horarios.
 
-## About Laravel
+Este proyecto fue desarrollado para la Actividad Autónoma 1 de Laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Alcance
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+El sistema incluye:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2 entidades principales:
 
-## Learning Laravel
+Espacio
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Reserva
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Características obligatorias:
 
-## Laravel Sponsors
+Migraciones completas
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Modelos con $fillable y relaciones:
 
-### Premium Partners
+Espacio tiene muchas reservas (hasMany)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Reserva pertenece a un espacio (belongsTo)
 
-## Contributing
+Controladores tipo Resource
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Vistas Blade:
 
-## Code of Conduct
+index, create, edit y partials/form para ambas entidades
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Relación 1–N totalmente funcional
 
-## Security Vulnerabilities
+Mensajes flash (success) en creación, edición y eliminación
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Selección de Espacio mediante <select> en la creación/edición de reservas
 
-## License
+Navegación básica entre listas
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Fuera del alcance:
+
+Login / autenticación
+
+Soft delete
+
+Búsqueda o filtrado
+
+Validación de traslape de reservas
+
+Requisitos
+
+Antes de iniciar, asegúrate de tener instalado:
+
+PHP 8.1+
+
+Composer
+
+MySQL o MariaDB
+
+Laravel 10+ (incluido mediante Composer)
+
+Extensiones PHP:
+
+pdo, pdo_mysql, mbstring, openssl, tokenizer
+
+Instalación
+1️. Clonar el repositorio
+git clone <URL_DEL_REPOSITORIO>
+cd campus_booking
+
+2️. Instalar dependencias
+composer install
+
+3️. Configurar el archivo .env
+
+Duplica el archivo de ejemplo:
+
+cp .env.example .env
+
+
+Luego edita los valores de tu base de datos:
+
+DB_DATABASE=campus_booking
+DB_USERNAME=root
+DB_PASSWORD=
+
+4️. Generar la clave de Laravel
+php artisan key:generate
+
+5️. Ejecutar migraciones
+php artisan migrate
+
+Ejecutar el servidor
+php artisan serve
+
+
+Accede en el navegador a:
+
+http://127.0.0.1:8000
+
+Estructura Principal del Proyecto
+app/
+ ├── Models/
+ │     ├── Espacio.php
+ │     └── Reserva.php
+ ├── Http/
+ │     └── Controllers/
+ │          ├── EspacioController.php
+ │          └── ReservaController.php
+
+resources/
+ └── views/
+       ├── layout.blade.php
+       ├── espacios/
+       │     ├── index.blade.php
+       │     ├── create.blade.php
+       │     ├── edit.blade.php
+       │     └── partials/form.blade.php
+       └── reservas/
+             ├── index.blade.php
+             ├── create.blade.php
+             ├── edit.blade.php
+             └── partials/form.blade.php
+
+Funciones Implementadas
+Espacios
+
+Crear nuevo espacio
+
+Listar espacios con paginación
+
+Editar y actualizar espacios
+
+Eliminar espacio
+
+Validaciones:
+
+nombre, tipo, ubicacion → required string
+
+capacidad → integer ≥ 1
+
+Reservas
+
+Crear reserva para un espacio
+
+Listar reservas con paginación
+
+Mostrar el nombre del espacio vía relación
+
+Editar y actualizar reservas
+
+Eliminar reserva
+
+Validaciones:
+
+espacio_id must exist in espacios
+
+Fechas y horas correctas (date, time format)
+
+
+Autor
+
+Proyecto realizado por:
+Jose Daniel Muñoz Velandia
